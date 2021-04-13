@@ -64,7 +64,8 @@ class ProduitType extends AbstractType
             ->add('ajouter_distributeurs', CollectionType::class,[
                 'entry_type' => DistributeurType::class,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+
             ])
             ->add('distributeurs', EntityType::class,[
                 'class' => Distributeur::class,

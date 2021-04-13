@@ -17,7 +17,6 @@ class DistributeurType extends AbstractType
             ->add('nomDistributeur', TextType::class,[
                 'label' => 'Nom du distributeur'
             ])
-
         ;
     }
 

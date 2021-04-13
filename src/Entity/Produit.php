@@ -72,7 +72,7 @@ class Produit
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Distributeur",inversedBy="produit", cascade={"persist"})
-     * @ORM\JoinColumn (nullable=true)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ajouter_distributeurs;
 

@@ -13,6 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+
+/**
+ * Class AdminController
+ * @package App\Controller
+ * @Route ("/admin")
+ */
 class AdminController extends AbstractController
 {
     /**
