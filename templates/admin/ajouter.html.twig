@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sf5 -Ajouter un produits-{% endblock %}
+
+{% block body %}
+    <div class="mt-3 d-flex justify-content-center">
+
+
+
+        <div class="form-group">
+            <h1 class="text-success text-center">AJOUTER UN PRODUITS</h1>
+            {{ form(formulaire_produit) }}
+
+            <a href="{{ path('liste_produits') }}" class="btn btn-outline-info">Annuler</a>
+        </div>
+
+    </div>
+
+{% endblock %}
