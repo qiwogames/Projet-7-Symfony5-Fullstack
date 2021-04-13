@@ -18,7 +18,11 @@
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <a class="nav-link" href="{{ path('app_login') }}"><b class="h5">CONNEXION</b></a>
+            {% if app.user %}
+                <a class="nav-link" href="{{ path('app_logout') }}"><b class="h5">DECONNEXION</b></a>
+            {% elseif not app.user %}
+                <a class="nav-link" href="{{ path('app_login') }}"><b class="h5">CONNEXION</b></a>
+            {% endif %}
             <a class="nav-link" href="{{ path('register') }}"><b class="h5">INSCRIPTION</b></a>
         </form>
     </div>
