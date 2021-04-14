@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Categories;
 use App\Entity\Distributeur;
 use App\Entity\Produit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class ProduitType extends AbstractType
 {
@@ -73,6 +75,12 @@ class ProduitType extends AbstractType
                 'label' => 'Selectionnez un ou plusieurs distributeur(s)',
                 'multiple' => true,
                 'required' => false
+            ])
+            ->add('categories', EntityType::class,[
+                'class' => Categories::class,
+                'choice_label' => 'nomCategorie',
+                'label' => 'Selectionnez une catégorie',
+                'required' => true
             ])
         ;
     }

@@ -26,6 +26,30 @@ class Distributeur
     private $produit;
 
     /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Produit", mappedBy="ajouter_distributeurs")
+     * @ORM\JoinColumn (nullable=true)
+     */
+    private $ajouter_distributeur;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAjouterDistributeur(): ArrayCollection
+    {
+        return $this->ajouter_distributeur;
+    }
+
+    /**
+     * @param ArrayCollection $ajouter_distributeur
+     */
+    public function setAjouterDistributeur(ArrayCollection $ajouter_distributeur): void
+    {
+        $this->ajouter_distributeur = $ajouter_distributeur;
+    }
+
+
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nomDistributeur;
@@ -33,6 +57,7 @@ class Distributeur
     public function __construct()
     {
         $this->produit = new ArrayCollection();
+        $this->ajouter_distributeur = new ArrayCollection();
     }
 
     public function getId(): ?int

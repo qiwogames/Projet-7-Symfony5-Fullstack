@@ -15,25 +15,21 @@
                     <img src="img{{ asset(produit.photoProduit) }}" class="card-img-top" alt="{{ produit.nomProduit }}" title="{{ produit.nomProduit }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ produit.nomProduit }}</h5>
-                        {% if produit.reference is not null %}
-                            <p class="card-text"><b>REFERENCE N° : {{ produit.reference.numero }} </b></p>
-                        {% endif %}
-                        {% if produit.distributeurs is not empty %}
-                            {% for distributeur in produit.distributeurs %}
-                                <p class="card-text"><b>DISTRIBUTEURS : {{ distributeur.nomDistributeur }}</b></p>
-                            {% endfor %}
-                        {% else %}
-                            <p class="alert alert-warning">Aucun distributeur</p>
-                        {% endif %}
 
                         <p class="card-text"><b>PRIX : {{ produit.prixProduit }} €</b></p>
-                        <p class="card-text"><b>QUANTITE : {{ produit.quantiteProduit }} unitée(s)</b></p>
-                        <p class="card-text"><b>EN STOCK : {{ produit.rupture ? 'OUI' : 'NON' }} </b></p>
+
                         <a href="#" class="btn btn-outline-success">Ajouter au panier</a>
+
+                        <!--details-->
+                        <a href="{{ path('details_produit',{'slug': produit.nomProduit ,'id': produit.id}) }}" class="btn btn-outline-warning">Détails</a>
+
+                        {% if app.user %}
                         <!-- Editer  -->
                         <a href="{{ path('editer',{'id': produit.id}) }}" class="btn btn-outline-info">Editer</a>
                         <!-- Supprimer -->
                         <a href="{{ path('supprimer',{'id': produit.id}) }}" class="btn btn-outline-danger mt-3">Supprimer</a>
+                        {% endif %}
+
 
                     </div>
                 </div>

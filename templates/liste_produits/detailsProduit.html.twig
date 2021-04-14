@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sf5 -Liste des produits-{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-info">GESTION DES PRODUITS</h1>
+    <div class="row">
+
+            <div class="col-md-4 col-sm-12 mt-3">
+                <div class="card">
+                    <img src="/img{{ asset(produit.photoProduit) }}" class="card-img-top" alt="{{ produit.nomProduit }}" title="{{ produit.nomProduit }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nomProduit }}</h5>
+                        {% if produit.reference is not null %}
+                            <p class="card-text"><b>REFERENCE N° : {{ produit.reference.numero }} </b></p>
+                        {% endif %}
+                        <p class="card-text">DISTRIBUTEURS :</p>
+                        {% if produit.distributeurs is not empty %}
+                            {% for distributeur in produit.distributeurs %}
+                                <p class="card-text alert alert-success mt-3"><b class="">{{ distributeur.nomDistributeur }}</b></p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="alert alert-warning">Aucun distributeur</p>
+                        {% endif %}
+
+                        <p class="card-text"><b>CATEGORIE : {{ produit.categories.nomCategorie }}</b></p>
+                        <p class="card-text"><b>PRIX : {{ produit.prixProduit }} €</b></p>
+                        <p class="card-text"><b>QUANTITE : {{ produit.quantiteProduit }} unitée(s)</b></p>
+                        <p class="card-text"><b>EN STOCK : {{ produit.rupture ? 'OUI' : 'NON' }} </b></p>
+                        <a href="#" class="btn btn-outline-success">Ajouter au panier</a>
+
+                        <a href="{{ path('liste_produits') }}" class="btn btn-outline-warning">Retour</a>
+
+                        {% if app.user %}
+                            <!-- Editer  -->
+                            <a href="{{ path('editer',{'id': produit.id}) }}" class="btn btn-outline-info">Editer</a>
+                            <!-- Supprimer -->
+                            <a href="{{ path('supprimer',{'id': produit.id}) }}" class="btn btn-outline-danger mt-3">Supprimer</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+{% endblock %}

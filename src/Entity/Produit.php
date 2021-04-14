@@ -71,10 +71,34 @@ class Produit
     private $distributeurs;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Distributeur",inversedBy="produit", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Distributeur",inversedBy="ajouter_distributeur", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $ajouter_distributeurs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categories",inversedBy="produit", cascade={"persist"})
+     * @ORM\JoinColumn (nullable=true)
+     */
+    private $categories;
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     */
+    public function setCategories($categories): void
+    {
+        $this->categories = $categories;
+    }
+
+
 
     /**
      * @return mixed
@@ -235,4 +259,6 @@ class Produit
         // Le nom du produit
         return $this->nomProduit;
     }
+
+
 }

@@ -34,6 +34,15 @@ class ListeProduitsController extends AbstractController
             'dernierProduit' => $dernierProduit
         ]);
     }
+    /**
+     * @Route("produit/{slug}/{id}", name="details_produit")
+     */
+    public function detailsProduit(Produit $produit):Response{
+        return $this->render('liste_produits/detailsProduit.html.twig',[
+            'produit' => $produit
+        ]);
+    }
+
 
     /**
      * @Route("/liste_distributeurs", name="liste_distributeurs")
