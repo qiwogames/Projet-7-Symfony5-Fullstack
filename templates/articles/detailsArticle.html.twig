@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SF5 -ARTICLES-{% endblock %}
+
+{% block body %}
+        <ul class="list-group mt-3">
+            <li class="list-group-item active">{{ article.nomArticle }} du : {{ article.dateArticle | date('s/m/Y')}} à {{ article.dateArticle | date('H:i') }}</li>
+            <li class="list-group-item"><img class="img-fluid" src="/img{{ asset(article.imageArticle) }}"></li>
+            <li class="list-group-item">{{ article.categoriesArticles.nomCategorie }}</li>
+            <li class="list-group-item">{{ article.contenuArticle }}</li>
+            <li class="list-group-item">Auteur : <b>{{ article.auteurArticle }}</b></li>
+            <li class="list-group-item">Posté le : {{ article.dateArticle | date('s/m/Y')}} à {{ article.dateArticle | date('H:i') }}<em></em></li>
+            <li class="list-group-item"><a href="{{ path('articles') }}" class="btn btn-outline-danger">Retour</a> </li>
+        </ul>
+{% endblock %}

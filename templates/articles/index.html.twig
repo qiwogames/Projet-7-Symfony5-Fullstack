@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SF5 -ARTICLES-{% endblock %}
+
+{% block body %}
+
+    {% for article in pagination %}
+        <ul class="list-group mt-3">
+            <li class="list-group-item active">{{ article.nomArticle }} <em class="text-warning">Posté le : {{ article.dateArticle | date('s/m/Y')}} à {{ article.dateArticle | date('H:i') }}</em></li>
+            <li class="list-group-item"><img width="20%" class="img-fluid" src="/img{{ asset(article.imageArticle) }}"></li>
+            <li class="list-group-item">Catégorie : {{ article.categoriesArticles.nomCategorie }}</li>
+            <li class="list-group-item">Auteur : <b>{{ article.auteurArticle }}</b></li>
+            <li class="list-group-item">Posté le : {{ article.dateArticle | date('s/m/Y')}} à {{ article.dateArticle | date('H:i') }}<em></em></li>
+            <li class="list-group-item"><a href="{{ path('lire_article',{'slug': article.nomArticle ,'id': article.id}) }}" class="btn btn-outline-warning">Lire l'article</a></li>
+            {% if app.user %}
+                <li class="list-group-item"><a href="{{ path('ajouter_article') }}" class="btn btn-outline-info">Ajouter un article</a></li>
+                <li class="list-group-item"><a href="{{ path('editer_article',{'id': article.id}) }}" class="btn btn-outline-success">Editer article</a></li>
+                <li class="list-group-item"><a href="{{ path('supprimer_article',{'id': article.id}) }}" class="btn btn-outline-danger">Supprimer article</a></li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+    <div class="navigation mt-3">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+{% endblock %}

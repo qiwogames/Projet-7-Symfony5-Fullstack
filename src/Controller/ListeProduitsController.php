@@ -4,7 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Distributeur;
 use App\Entity\Produit;
+use App\Entity\PropertySearch;
+use App\Form\PropertySearchType;
+use App\Repository\ProduitRepository;
+use Cocur\Slugify\Slugify;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,8 +21,30 @@ class ListeProduitsController extends AbstractController
     /**
      * @Route("/liste_produits", name="liste_produits")
      */
-    public function listeProduits(): Response
+    public function listeProduits(Request $request,ProduitRepository $produitRepository, PaginatorInterface $paginator): Response
     {
+
+        //Recherche par prix et catégorie
+        $search = new PropertySearch();
+
+        $formSearch = $this->createForm(PropertySearchType::class,$search);
+        $formSearch->handleRequest($request);
+
+
+        //Recherche
+        //Creer une entité de recherche + formulaire + traitement dans le controlleur
+
+        //Pagination
+        //Appel du service PaginatorInterface en paramètre
+        //Appel de la methode paginate + paramètres
+        $pagination = $paginator->paginate(
+        //On recupère tous les articles
+            $produitRepository->rechecheParPrixRef($search),
+            //On liste par entier (knp_paginator.yaml) on definit la cle dans url, par defaut ma page=1 + nombre d'article a afficher (ici 2)
+            $request->query->getInt('page', 1), 3
+        );
+
+
         //Appel de Doctrine EntityManager et ses methodes
         $entityManager = $this->getDoctrine()->getManager();
         //Stock et appel du Repository
@@ -31,15 +59,18 @@ class ListeProduitsController extends AbstractController
             'controller_name' => 'ListeProduitsController',
             //Ici la cle (listeProduit) sera accessible dans la vue index.html.twig grace a l'interpolation {{listeProduit}} c'est un ArrayCollection
             'listeProduits' => $listeProduit,
-            'dernierProduit' => $dernierProduit
+            'dernierProduit' => $dernierProduit,
+            'pagination' => $pagination,
+            'form_search' => $formSearch->createView()
         ]);
     }
     /**
      * @Route("produit/{slug}/{id}", name="details_produit")
      */
     public function detailsProduit(Produit $produit):Response{
+
         return $this->render('liste_produits/detailsProduit.html.twig',[
-            'produit' => $produit
+            'produit' =>  $produit
         ]);
     }
 
@@ -59,4 +90,8 @@ class ListeProduitsController extends AbstractController
             'distributeurs' => $distributeur
         ]);
     }
+
+
+
+
 }

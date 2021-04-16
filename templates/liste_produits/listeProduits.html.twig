@@ -3,13 +3,25 @@
 {% block title %}Sf5 -Liste des produits-{% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-info">GESTION DES PRODUITS</h1>
+    <h1 class="text-center text-info">LISTE DE NOS PRODUITS</h1>
+
+    {% if app.user %}
     <a href="{{ path('ajouter') }}" class="btn btn-outline-danger">Ajouter un produit</a>
+    {% endif %}
+    <h3 class="text-warning">RECHERCHER UN PRODUIT</h3>
+    {{ form_start(form_search) }}
+
+        {{ form_row(form_search.categories) }}
+        {{ form_row(form_search.maxPrix) }}
+        <button type="submit" class="btn btn-outline-success">Rechercher</button>
+
+    {{ form_end(form_search) }}
+
     <div class="alert alert-warning mt-3">20% de reduction sur le produit : {{ dernierProduit.nomProduit }}</div>
     <div class="row">
 
 
-        {% for produit in listeProduits %}
+        {% for produit in pagination %}
             <div class="col-md-4 col-sm-12 mt-3">
                 <div class="card">
                     <img src="img{{ asset(produit.photoProduit) }}" class="card-img-top" alt="{{ produit.nomProduit }}" title="{{ produit.nomProduit }}">
@@ -17,6 +29,8 @@
                         <h5 class="card-title">{{ produit.nomProduit }}</h5>
 
                         <p class="card-text"><b>PRIX : {{ produit.prixProduit }} €</b></p>
+
+                        <p class="card-text"><b>CATEGORIES : {{ produit.categories.nomCategorie }}</b></p>
 
                         <a href="#" class="btn btn-outline-success">Ajouter au panier</a>
 
@@ -36,6 +50,9 @@
             </div>
         {% endfor %}
 
+    </div>
+    <div class="navigation mt-3">
+        {{ knp_pagination_render(pagination) }}
     </div>
 
 {% endblock %}

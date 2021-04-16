@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SF5 -ARTICLES EDITER-{% endblock %}
+
+{% block body %}
+    <h1 class="text-danger">Editer  article {{ form(form_article.nomArticle) }}</h1>
+    {{ form_start(form_article) }}
+    <div class="form-group">
+        {{ form(form_article) }}
+    </div>
+    {{ form_end(form_article) }}
+
+{% endblock %}

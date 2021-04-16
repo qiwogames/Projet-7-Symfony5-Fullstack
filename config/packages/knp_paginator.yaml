@@ -1,0 +1,13 @@
+knp_paginator:
+  page_range: 5                       # Nombre de liens montre de la pagination
+  default_options:
+    page_name: page                 # Nom de la cle  query paramètre
+    sort_field_name: sort           # paramètre query du champs de tri
+    sort_direction_name: direction  # direction du tri
+    distinct: true                  # Utile en cas de group_by
+    filter_field_name: filterField  # champ de filtre
+    filter_value_name: filterValue  # valeur du filtre
+  template:
+    pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'     # ici le template boostrap 4
+    sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
+    filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template

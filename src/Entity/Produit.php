@@ -71,7 +71,7 @@ class Produit
     private $distributeurs;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Distributeur",inversedBy="ajouter_distributeur", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Distributeur", inversedBy="ajouter_distributeur", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $ajouter_distributeurs;
@@ -119,6 +119,7 @@ class Produit
     public function __construct()
     {
         $this->distributeurs = new ArrayCollection();
+        $this->ajouter_distributeurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,6 +259,22 @@ class Produit
     public function __toString(){
         // Le nom du produit
         return $this->nomProduit;
+    }
+
+    public function addAjouterDistributeur(Distributeur $ajouterDistributeur): self
+    {
+        if (!$this->ajouter_distributeurs->contains($ajouterDistributeur)) {
+            $this->ajouter_distributeurs[] = $ajouterDistributeur;
+        }
+
+        return $this;
+    }
+
+    public function removeAjouterDistributeur(Distributeur $ajouterDistributeur): self
+    {
+        $this->ajouter_distributeurs->removeElement($ajouterDistributeur);
+
+        return $this;
     }
 
 

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,15 +46,24 @@ class ProduitRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Produit
+
+    public function rechecheParPrixRef(PropertySearch $search): Query
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->findAll();
+
+        if($search->getCategories()){
+            $query = $this->createQueryBuilder('p')
+                ->andWhere('p.categories = :categories')
+                ->setParameter('categories', $search->getCategories());
+        }
+
+        if($search->getMaxPrix()){
+            $query = $this->createQueryBuilder('p')
+                ->andWhere('p.prixProduit <= :maxprix')
+                ->setParameter('maxprix', $search->getMaxPrix());
+        }
+
+        return $query->getQuery();
     }
-    */
+
 }

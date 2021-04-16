@@ -103,4 +103,23 @@ class Distributeur
 
         return $this;
     }
+
+    public function addAjouterDistributeur(Produit $ajouterDistributeur): self
+    {
+        if (!$this->ajouter_distributeur->contains($ajouterDistributeur)) {
+            $this->ajouter_distributeur[] = $ajouterDistributeur;
+            $ajouterDistributeur->addAjouterDistributeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAjouterDistributeur(Produit $ajouterDistributeur): self
+    {
+        if ($this->ajouter_distributeur->removeElement($ajouterDistributeur)) {
+            $ajouterDistributeur->removeAjouterDistributeur($this);
+        }
+
+        return $this;
+    }
 }

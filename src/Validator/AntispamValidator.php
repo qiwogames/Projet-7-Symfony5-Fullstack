@@ -13,7 +13,7 @@ class AntispamValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         // REGEX.
-        if(!preg_match('/^[a-zA-Z ]+$/', $value, $matches)){
+        if(!preg_match('/^[a-zA-Z - 0-9]+$/', $value, $matches)){
 
             $this->context->buildViolation($constraint->message)
                 ->setParameters(array('%string%' => $value))
